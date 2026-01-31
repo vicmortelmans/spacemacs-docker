@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  spacemacs-gui:
+    platform: linux/x86_64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: spacemacs:latest
+    container_name: spacemacs-gui
+    environment:
+      # Let containers talk to the Windows host X server
+      - DISPLAY=host.docker.internal:0.0
+      # Optional: fix theme/menus rendering
+      - GDK_SCALE=1
+      - GDK_DPI_SCALE=1
+    working_dir: /home/dev/workspace
+    volumes:
+      - ../orgme:/home/dev/workspace
+      - ./.spacemacs:/home/dev/.spacemacs
+
+    # No need for X11 sockets on Windows; we go through TCP to the X server
+    entrypoint: ["emacs"]
