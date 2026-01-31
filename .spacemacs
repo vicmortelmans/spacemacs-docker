@@ -582,7 +582,7 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (add-to-list 'load-path "/home/dev/.emacs.d/private/local/taskjuggler")
+  (add-to-list 'load-path "~/.emacs.d/private/local/taskjuggler")
   (require 'ox-taskjuggler)
   (require 'org-table)
   (require 'ox-html)
@@ -611,7 +611,7 @@ before packages are loaded."
   (setq org-export-with-broken-links 'mark)
   (setq evil-escape-key-sequence "ii")
   (setq evil-escape-delay 0.3)
-  (setq org-taskjuggler-process-command "c:\\ruby33-x64\\bin\\tj3 --silent --output-dir %o %f")
+  (setq org-taskjuggler-process-command "tj3 --silent --output-dir %o %f")
   (setq browse-url-browser-function 'browse-url-xdg-open)
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
   (setq org-latex-compiler "tectonic")
@@ -1284,7 +1284,7 @@ This function is called at the very end of Spacemacs initialization."
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   '(org-agenda-files '("/home/dev/workspace/work.org"))
+   '(org-agenda-files '("~/workspace/work.org"))
    '(org-trello-current-prefix-keybinding "C-c o")
    '(package-selected-packages
      '(a ace-jump-helm-line ace-link aggressive-indent alert all-the-icons annalist

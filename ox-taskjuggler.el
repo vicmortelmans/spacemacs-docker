@@ -1068,9 +1068,9 @@ FILE is the name of the file being compiled.  Processing is done
 through the command given in `org-taskjuggler-process-command'.
 
 Return a list of reports."
-  (let* ((full-name (subst-char-in-string ?/ ?\\ (file-truename file)))
+  (let* ((full-name (subst-char-in-string ?/ ?/ (file-truename file)))
          (out-dir
-          (subst-char-in-string ?/ ?\\  (expand-file-name
+          (subst-char-in-string ?/ ?/  (expand-file-name
                                          org-taskjuggler-reports-directory (file-name-directory file))))
          errors)
     (message (format "Processing TaskJuggler file %s..." file))

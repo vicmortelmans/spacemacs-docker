@@ -13,10 +13,8 @@ services:
       # Optional: fix theme/menus rendering
       - GDK_SCALE=1
       - GDK_DPI_SCALE=1
-    working_dir: /home/dev/workspace
+    working_dir: /root/workspace
     volumes:
-      - ../orgme:/home/dev/workspace
-      - ./.spacemacs:/home/dev/.spacemacs
-
-    # No need for X11 sockets on Windows; we go through TCP to the X server
+      - ../orgme:/root/workspace
+      - ./.spacemacs:/root/.spacemacs
     entrypoint: ["emacs"]

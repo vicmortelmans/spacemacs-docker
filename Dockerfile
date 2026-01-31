@@ -32,17 +32,9 @@ RUN sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen && locale-gen
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
-# -----------------------------
-# Create non-root user
-# -----------------------------
-RUN adduser --disabled-password --gecos "" dev && \
-    usermod -aG sudo dev && \
-    echo "dev ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/90-dev
-
-USER dev
-WORKDIR /home/dev
-ENV HOME=/home/dev
-ENV PATH="/home/dev/.local/bin:${PATH}"
+WORKDIR /root
+ENV HOME=/root
+ENV PATH="/root/.local/bin:${PATH}"
 
 # -----------------------------
 # Download and build Emacs 30.1 from source
@@ -73,9 +65,8 @@ RUN emacs --batch \
 # -----------------------------
 # Copy your Spacemacs config & private layers
 # -----------------------------
-COPY ./.spacemacs /home/dev/.spacemacs
-COPY ./ox-taskjuggler.el /home/dev/.emacs.d/private/local/taskjuggler/ox-taskjuggler.el
-#RUN sudo chown -R dev:dev /home/dev/.emacs.d /home/dev/.spacemacs
+COPY ./.spacemacs /root/.spacemacs
+COPY ./ox-taskjuggler.el /root/.emacs.d/private/local/taskjuggler/ox-taskjuggler.el
 
 # -----------------------------
 # Pre-refresh package archives
@@ -85,7 +76,7 @@ RUN emacs --batch --eval '(package-refresh-contents)' || true
 # -----------------------------
 # Spacemacs sync helper
 # -----------------------------
-RUN cat > /home/dev/spacemacs-sync.el <<'EOF'
+RUN cat > /root/spacemacs-sync.el <<'EOF'
 (setq dotspacemacs-scratch-mode (quote text-mode))
 (configuration-layer/initialize)
 (condition-case err
@@ -100,7 +91,7 @@ EOF
 # Retry loop (3 attempts)
 RUN for i in 1 2 3; do \
       echo "=== Spacemacs preinstall attempt $i ==="; \
-      if emacs --batch -l ~/.emacs.d/init.el -l /home/dev/spacemacs-sync.el; then \
+      if emacs --batch -l ~/.emacs.d/init.el -l /root/spacemacs-sync.el; then \
         echo "=== Spacemacs preinstall succeeded on attempt $i ==="; \
         break; \
       else \
@@ -112,8 +103,8 @@ RUN for i in 1 2 3; do \
 # -----------------------------
 # Workspace dir
 # -----------------------------
-RUN mkdir -p /home/dev/workspace
-WORKDIR /home/dev/workspace
+RUN mkdir -p /root/workspace
+WORKDIR /root/workspace
 
 # Default shell
 CMD ["/bin/bash"]
