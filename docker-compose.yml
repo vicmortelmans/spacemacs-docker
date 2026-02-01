@@ -13,8 +13,11 @@ services:
       # Optional: fix theme/menus rendering
       - GDK_SCALE=1
       - GDK_DPI_SCALE=1
+      - SHELL=/bin/bash
     working_dir: /root/workspace
     volumes:
       - ../orgme:/root/workspace
       - ./.spacemacs:/root/.spacemacs
-    entrypoint: ["emacs"]
+      - ${USERPROFILE}/.gitconfig:/root/.gitconfig:ro
+      - ${USERPROFILE}/.ssh:/root/.ssh-volume:ro
+    command: emacs

@@ -7,7 +7,6 @@ ENV EMACS_VERSION=30.1
 # System dependencies for Emacs + LaTeX (Tectonic) + search tools
 # -----------------------------
 RUN sed -i 's/^# deb/deb/' /etc/apt/sources.list && \
-    sed -i 's/main$/main universe/' /etc/apt/sources.list && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
         build-essential autoconf automake texinfo pkg-config libncurses-dev \
@@ -18,6 +17,9 @@ RUN sed -i 's/^# deb/deb/' /etc/apt/sources.list && \
         silversearcher-ag ripgrep fd-find aspell aspell-en \
         xclip xsel imagemagick x11-apps \
         fonts-dejavu ca-certificates \
+	tj3 \
+	inotify-tools \
+        ssh \
     && rm -rf /var/lib/apt/lists/*
 # Install Tectonic pdflatex with dynamic modules
 RUN curl --proto '=https' --tlsv1.2 -fsSL https://drop-sh.fullyjustified.net | sh && \
@@ -106,5 +108,8 @@ RUN for i in 1 2 3; do \
 RUN mkdir -p /root/workspace
 WORKDIR /root/workspace
 
-# Default shell
-CMD ["/bin/bash"]
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["emacs"]
+

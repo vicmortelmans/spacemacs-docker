@@ -842,6 +842,61 @@ before packages are loaded."
       ;; Add the copied file to Git if needed
       (shell-command (format "git add %s" (shell-quote-argument target-path)))))
 
+  ;; ------------------------------------------------------------
+  ;; Helpers
+  ;; ------------------------------------------------------------
+
+  (defun my-slugify (s)
+    "Convert string S to a filesystem-friendly slug."
+    (let* ((s (downcase s))
+           (s (replace-regexp-in-string "[^a-z0-9]+" "-" s))
+           (s (replace-regexp-in-string "^-\\|-$" "" s)))
+      s))
+
+  (defun my-org-current-top-level-heading ()
+    "Return the title of the current top-level Org heading, or nil."
+    (save-excursion
+      (while (and (org-up-heading-safe)
+                  (> (org-current-level) 1)))
+      (when (= (org-current-level) 1)
+        (nth 4 (org-heading-components)))))
+
+  (defun my-timestamp ()
+    "Return a compact timestamp string."
+    (format-time-string "%Y%m%d-%H%M%S"))
+
+  ;; ------------------------------------------------------------
+  ;; Main command
+  ;; ------------------------------------------------------------
+
+  (spacemacs/set-leader-keys "oiw" 'my-org-insert-clipboard-image)
+
+  (defun my-org-insert-clipboard-image ()
+    "Insert clipboard image into a timestamped file under a slugged Org heading directory."
+    (interactive)
+    (let* ((clipboard-file "/root/workspace/clipboard.png")
+           (org-download-image-dir (or org-download-image-dir "./images"))
+           (heading (or (my-org-current-top-level-heading) "misc"))
+           (slug (my-slugify heading))
+           (target-dir (expand-file-name slug org-download-image-dir))
+           (filename (format "clipboard-%s.png" (my-timestamp)))
+           (target-path (expand-file-name filename target-dir)))
+      (if (not (file-exists-p clipboard-file))
+          (message "Clipboard image file not found: %s" clipboard-file)
+        (progn
+          ;; Ensure target directory exists
+          (unless (file-exists-p target-dir)
+            (make-directory target-dir t))
+          ;; Copy clipboard image
+          (copy-file clipboard-file target-path t)
+          ;; Insert Org link with fixed width
+          (insert (format "#+ATTR_ORG: :width 300\n[[file:%s]]\n" target-path))
+          ;; Display inline images
+          (org-display-inline-images)
+          ;; Optionally add to Git
+          (shell-command
+           (format "git add %s" (shell-quote-argument target-path)))))))
+
   ;; paste image from clipboard with fixed width
   ;; org-download-screenshot vs. org-download-clipboard??
   (spacemacs/set-leader-keys "oip" 'my-org-paste-image)
