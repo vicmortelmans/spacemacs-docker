@@ -1,5 +1,7 @@
 Launch the X-server first! (otherwise emacs won't display and you get a tty error)
 
+Launch Docker Desktop first!
+
 Launch spacemacs:
 
 	spacemacs.bat

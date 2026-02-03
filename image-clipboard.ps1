@@ -9,19 +9,38 @@ $lastHash = ""
 while ($true) {
     try {
         if ([System.Windows.Forms.Clipboard]::ContainsImage()) {
-            $img = [System.Windows.Forms.Clipboard]::GetImage()
-            $ms = New-Object System.IO.MemoryStream
-            $img.Save($ms, [System.Drawing.Imaging.ImageFormat]::Png)
-            $hash = (Get-FileHash -InputStream $ms).Hash
 
-            if ($hash -ne $lastHash) {
-                $img.Save($dest, [System.Drawing.Imaging.ImageFormat]::Png)
-                $lastHash = $hash
-                Write-Host "Clipboard image updated"
+            # Copy image to avoid locking the clipboard
+            $src = [System.Windows.Forms.Clipboard]::GetImage()
+            if ($src -ne $null) {
+
+                # Clone the image so we can dispose safely
+                $img = $src.Clone()
+                $src.Dispose()
+
+                # Hash the cloned image
+                $ms = New-Object System.IO.MemoryStream
+                $img.Save($ms, [System.Drawing.Imaging.ImageFormat]::Png)
+
+                $ms.Position = 0   # important!
+                $hash = (Get-FileHash -InputStream $ms -Algorithm SHA256).Hash
+
+                if ($hash -ne $lastHash) {
+                    # Save to disk
+                    $img.Save($dest, [System.Drawing.Imaging.ImageFormat]::Png)
+                    Write-Host "Clipboard image updated"
+
+                    $lastHash = $hash
+                }
+
+                $img.Dispose()
+                $ms.Dispose()
             }
         }
-    } catch {
-        # transient clipboard lock, ignore
     }
-    Start-Sleep -Milliseconds 500
+    catch {
+        # clipboard busy etc.
+    }
+
+    Start-Sleep -Milliseconds 400
 }
