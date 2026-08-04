@@ -613,10 +613,14 @@ before packages are loaded."
   (setq evil-escape-delay 0.3)
   (setq org-taskjuggler-process-command "tj3 --silent --output-dir %o %f")
   (setq browse-url-browser-function 'browse-url-xdg-open)
-  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1))
   (setq org-latex-compiler "tectonic")
   (setq org-latex-pdf-process
         '("tectonic -X compile %f"))
+  (setq org-preview-latex-default-process 'xelatex)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((dot . t)))
 
   ;; progress summary per tag
   (defun my-org-subtree-progress ()
