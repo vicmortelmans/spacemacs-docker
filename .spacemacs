@@ -70,6 +70,7 @@ This function should only modify configuration layer settings."
    '(
      git-auto-commit-mode
      org-cliplink
+     org-sticky-header
      (elgantt :location local))  ;; removed ox-html org-table
 
    ;; A list of packages that cannot be updated.
@@ -588,6 +589,8 @@ before packages are loaded."
   (require 'ox-html)
   (require 'ox-md)
   ;; (require 'elgantt)  ;; can't get dependencies right
+  (require 'org-sticky-header)
+  (add-hook 'org-mode-hook #'org-sticky-header-mode)
   ;; these were first set using Customize, but don't seem to work all that well?
   (setq system-time-locale "C")
   (setq blink-cursor-interval 0.3)
@@ -617,6 +620,9 @@ before packages are loaded."
   (setq org-latex-compiler "tectonic")
   (setq org-latex-pdf-process
         '("tectonic -X compile %f"))
+  (setq scroll-margin 5)
+  (setq org-indirect-buffer-display 'new-frame)
+  (setq org-sticky-header-full-path 'reversed)
 
   ;; progress summary per tag
   (defun my-org-subtree-progress ()
@@ -1366,8 +1372,8 @@ This function is called at the very end of Spacemacs initialization."
          macrostep magit magit-section markdown-mode multi-line multi-term
          nameless open-junk-file org-category-capture org-cliplink org-contrib
          org-download org-mime org-pomodoro org-present org-project-capture
-         org-projectile org-rich-yank org-superstar org-trello orgit overseer
-         paradox paredit password-generator pcre2el popwin quickrun
+         org-projectile org-rich-yank org-sticky-header org-superstar org-trello
+         orgit overseer paradox paredit password-generator pcre2el popwin quickrun
          rainbow-delimiters request request-deferred restart-emacs shell-pop
          smeargle solarized-theme space-doc spaceline spacemacs-purpose-popwin
          spacemacs-whitespace-cleanup string-edit-at-point string-inflection
