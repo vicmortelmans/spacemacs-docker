@@ -625,6 +625,7 @@ before packages are loaded."
   (setq org-indirect-buffer-display 'new-frame)
   (setq org-sticky-header-full-path 'reversed)
   (setq org-preview-latex-default-process 'xelatex)
+  (setq org-duration-format 'h:mm)
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((dot . t)))
