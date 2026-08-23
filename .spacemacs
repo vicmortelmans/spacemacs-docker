@@ -1353,40 +1353,7 @@ This function is called at the very end of Spacemacs initialization."
    '(org-agenda-files '("~/workspace/work.org"))
    '(org-trello-current-prefix-keybinding "C-c o")
    '(package-selected-packages
-     '(a ace-jump-helm-line ace-link aggressive-indent alert all-the-icons annalist
-         anzu auto-compile auto-highlight-symbol browse-at-remote centaur-tabs
-         centered-cursor-mode clang-format clean-aindent-mode closql code-review
-         column-enforce-mode deferred define-word devdocs diff-hl diminish
-         dired-quick-sort dotenv-mode drag-stuff dumb-jump eat editorconfig
-         elisp-def elisp-demos elisp-slime-nav emacsql emoji-cheat-sheet-plus
-         emojify emr esh-help eshell-prompt-extras eshell-z eval-sexp-fu evil-anzu
-         evil-args evil-cleverparens evil-collection evil-easymotion evil-escape
-         evil-evilified-state evil-exchange evil-goggles evil-iedit-state
-         evil-indent-plus evil-lion evil-lisp-state evil-matchit evil-mc
-         evil-nerd-commenter evil-numbers evil-org evil-surround evil-textobj-line
-         evil-tutor evil-unimpaired evil-visual-mark-mode evil-visualstar
-         expand-region eyebrowse fancy-battery flx-ido flycheck-elsa
-         flycheck-package forge ghub git-auto-commit-mode git-commit git-link
-         git-messenger git-modes git-timemachine gitignore-templates gntp gnuplot
-         golden-ratio google-translate helm-ag helm-comint helm-descbinds
-         helm-git-grep helm-ls-git helm-make helm-mode-manager helm-org
-         helm-org-rifle helm-projectile helm-purpose helm-swoop helm-themes
-         helm-xref hide-comnt highlight-indentation highlight-numbers
-         highlight-parentheses hl-todo holy-mode htmlize hungry-delete hybrid-mode
-         iedit indent-guide info+ inspector link-hint list-utils log4e lorem-ipsum
-         macrostep magit magit-section markdown-mode multi-line multi-term
-         nameless open-junk-file org-category-capture org-cliplink org-contrib
-         org-download org-mime org-pomodoro org-present org-project-capture
-         org-projectile org-rich-yank org-sticky-header org-superstar org-trello
-         orgit overseer paradox paredit password-generator pcre2el popwin quickrun
-         rainbow-delimiters request request-deferred restart-emacs shell-pop
-         smeargle solarized-theme space-doc spaceline spacemacs-purpose-popwin
-         spacemacs-whitespace-cleanup string-edit-at-point string-inflection
-         symbol-overlay symon term-cursor terminal-here toc-org transient
-         treemacs-evil treemacs-icons-dired treemacs-magit treemacs-persp
-         treemacs-projectile treepy undo-tree uuidgen vi-tilde-fringe
-         vim-powerline volatile-highlights which-key winum with-editor
-         writeroom-mode ws-butler yaml))
+     '(org-sticky-header a ace-jump-helm-line ace-link aggressive-indent alert all-the-icons annalist anzu auto-compile auto-highlight-symbol browse-at-remote centaur-tabs centered-cursor-mode clang-format clean-aindent-mode closql code-review column-enforce-mode deferred define-word devdocs diff-hl diminish dired-quick-sort dotenv-mode drag-stuff dumb-jump eat editorconfig elisp-def elisp-demos elisp-slime-nav emacsql emoji-cheat-sheet-plus emojify emr esh-help eshell-prompt-extras eshell-z eval-sexp-fu evil-anzu evil-args evil-cleverparens evil-collection evil-easymotion evil-escape evil-evilified-state evil-exchange evil-goggles evil-iedit-state evil-indent-plus evil-lion evil-lisp-state evil-matchit evil-mc evil-nerd-commenter evil-numbers evil-org evil-surround evil-textobj-line evil-tutor evil-unimpaired evil-visual-mark-mode evil-visualstar expand-region eyebrowse fancy-battery flx-ido flycheck-elsa flycheck-package forge ghub git-auto-commit-mode git-commit git-link git-messenger git-modes git-timemachine gitignore-templates gntp gnuplot golden-ratio google-translate helm-ag helm-comint helm-descbinds helm-git-grep helm-ls-git helm-make helm-mode-manager helm-org helm-org-rifle helm-projectile helm-purpose helm-swoop helm-themes helm-xref hide-comnt highlight-indentation highlight-numbers highlight-parentheses hl-todo holy-mode htmlize hungry-delete hybrid-mode iedit indent-guide info+ inspector link-hint list-utils log4e lorem-ipsum macrostep magit magit-section markdown-mode multi-line multi-term nameless open-junk-file org-category-capture org-cliplink org-contrib org-download org-mime org-pomodoro org-present org-project-capture org-projectile org-rich-yank org-superstar org-trello orgit overseer paradox paredit password-generator pcre2el popwin quickrun rainbow-delimiters request request-deferred restart-emacs shell-pop smeargle solarized-theme space-doc spaceline spacemacs-purpose-popwin spacemacs-whitespace-cleanup string-edit-at-point string-inflection symbol-overlay symon term-cursor terminal-here toc-org transient treemacs-evil treemacs-icons-dired treemacs-magit treemacs-persp treemacs-projectile treepy undo-tree uuidgen vi-tilde-fringe vim-powerline volatile-highlights which-key winum with-editor writeroom-mode ws-butler yaml))
    '(safe-local-variable-values
      '((org-download-image-dir . "./home.org.img")
        (org-download-image-dir . "./work.org.img"))))
