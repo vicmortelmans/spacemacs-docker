@@ -753,6 +753,7 @@ before packages are loaded."
 
   ;; obsolete auto-save-visited-mode used because auto-save doesn't trigger git-auto-commit-mode
   ;; https://github.com/syl20bnr/spacemacs/issues/16432#issuecomment-2149864333
+  (setq auto-save-visited-interval 30)
   (auto-save-visited-mode t)
   (setq auto-save-visited-file-name t)
 
