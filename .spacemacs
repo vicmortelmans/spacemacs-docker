@@ -602,8 +602,9 @@ before packages are loaded."
   (setq org-log-note-clock-out t)
   (setq org-time-stamp-rounding-minutes '(0 0))
   (setq evil-jumps-across-buffers nil)
-  (setq org-file-apps
-        '(("\\.png\\'" . default)
+  (setq org-file-apps                   ;
+        '(("\\.\\(png\\|jpe?g\\|gif\\|svg\\|webp\\)\\'" . "xdg-open %s")
+          ("\\.png\\'" . default)
           (auto-mode . emacs)
           (directory . emacs)
           ("\\.mm\\'" . default)
@@ -1338,6 +1339,21 @@ This is a dynamic block that can be updated with C-c C-c."
 
   (spacemacs/declare-prefix "oc" "convert")
   (spacemacs/set-leader-keys "ocm" 'my-md-to-org-region)
+
+  ;; Hierarchical archiving
+  (defun my-org-archive-subtree (orig-fun &rest args)
+    (let ((org-archive-location
+           (if (save-excursion
+                 (org-back-to-heading)
+                 (> (org-outline-level) 1))
+               (concat (car (split-string org-archive-location "::"))
+                       "::* "
+                       (car (org-get-outline-path)))
+             org-archive-location)))
+      (apply orig-fun args)))
+
+  (advice-add 'org-archive-subtree :around #'my-org-archive-subtree)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
